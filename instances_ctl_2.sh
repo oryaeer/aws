@@ -58,9 +58,19 @@ case $action in
     sudo pip install gunicorn -y
     sudo yum install git -y
     sleep 10
+    
+
     sudo git clone https://github.com/oryaeer/flask.git /home/ec2-user/Git')
+
     sleep 45
-    echo -e "[Unit]\nDescription=Flask Web Application\nAfter=network.target\n\n[Service]\nUser=ec2-user\nWorkingDirectory=/home/ec2-user/Git/flask/bitcoinproject\nExecStart=gunicorn --bind 0.0.0.0:5000 app:app &\nRestart=always\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/flaskapp.service 
+    sudo echo -e "[Unit]\nDescription=Flask Web Application\nAfter=network.target\n\n[Service]\nUser=ec2-user\nWorkingDirectory=/home/ec2-user/Git/bitcoinproject\nExecStart=gunicorn --bind 0.0.0.0:5000 app:app &\nRestart=always\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/flaskapp.service
+    sudo systemctl enable flaskapp
+    sudo systemctl start flaskapp
+
+  
+
+
+
     
     echo "Instance launched with ID: $instance_id"
 
